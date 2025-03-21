@@ -1,4 +1,4 @@
-package com.example.assignment2;
+package com.example.assignment2.viewmodel;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;

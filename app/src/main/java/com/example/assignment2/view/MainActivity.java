@@ -1,21 +1,20 @@
-package com.example.assignment2;
+package com.example.assignment2.view;
 
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
 
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.assignment2.databinding.ActivityMainBinding;
+import com.example.assignment2.viewmodel.StockViewModel;
 
 
 public class MainActivity extends AppCompatActivity {
 
-    MainActivityViewModel viewModel;
+    StockViewModel viewModel;
 
     ActivityMainBinding binding;
 
@@ -28,25 +27,29 @@ public class MainActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
         //setContentView(R.layout.activity_main);
 
-        viewModel = new ViewModelProvider(this).get(MainActivityViewModel.class);
+        //viewModel = new ViewModelProvider(this).get(MainActivityViewModel.class);
+        viewModel = new ViewModelProvider(this).get(StockViewModel.class);
 
-        viewModel.getNumber().observe(this,getData->{
+        viewModel.getStockData().observe(this, stockData->{
             Log.i("tag","observe trigger");
 
 
             //TextView resultsTv = findViewById(R.id.resultsTv);
-            String strData = Integer.toString(getData);
-            binding.resultsTv.setText(strData);
+
+            binding.textView.setText(stockData.getUsdPrice());
+            binding.textView2.setText(stockData.getJpyPrice());
+            binding.textView3.setText(stockData.getEuroPrice());
+
 
         });
 
         //Button addOneBtn = findViewById(R.id.add1Btn);
-        binding.add1Btn.setOnClickListener(new View.OnClickListener(){
+        binding.refreshBtn.setOnClickListener(new View.OnClickListener(){
 
             @Override
             public void onClick(View view){
 
-                viewModel.addOne();
+                viewModel.Refresh();
             }
         });
     }
