@@ -8,7 +8,6 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.example.assignment2.model.MovieModel;
-import com.example.assignment2.model.StockModel;
 import com.example.assignment2.utils.ApiClient;
 
 import org.json.JSONException;

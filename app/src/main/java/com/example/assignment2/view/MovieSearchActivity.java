@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,7 +15,6 @@ import com.example.assignment2.R;
 import com.example.assignment2.databinding.ActivityMovieSearchBinding;
 import com.example.assignment2.model.MovieModel;
 import com.example.assignment2.viewmodel.MainActivityViewModel;
-import com.example.assignment2.viewmodel.StockViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
