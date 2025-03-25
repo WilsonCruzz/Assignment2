@@ -25,16 +25,6 @@ public class MovieModel {
         this.year = year;
     }
 
-
-
-
-
-
-
-
-
-
-
     public String getPoster() {
         return poster;
     }
@@ -42,7 +32,6 @@ public class MovieModel {
     public void setPoster(String poster) {
         this.poster = poster;
     }
-
 
 
     public String getType() {
