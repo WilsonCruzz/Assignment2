@@ -3,16 +3,10 @@ package com.example.assignment2.view;
 public class Item {
 
 
-    String itemImg,itemName, itemYear,itemType,itemRating;
+    String itemImg,itemName, itemYear,itemType;
 
     public Item(){}
 
-
-    public Item(String itemImg, String itemName,String itemYear) {
-        this.itemImg = itemImg;
-        this.itemName = itemName;
-        this.itemYear = itemYear;
-    }
     public Item(String itemImg, String itemName,String itemYear,String itemType) {
         this.itemImg = itemImg;
         this.itemName = itemName;
@@ -54,11 +48,5 @@ public class Item {
         this.itemType = itemType;
     }
 
-    public String getItemRating() {
-        return itemRating;
-    }
 
-    public void setItemRating(String itemRating) {
-        this.itemRating = itemRating;
-    }
 }

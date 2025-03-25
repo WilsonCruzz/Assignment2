@@ -23,9 +23,6 @@ public class MovieDetailsActivity extends AppCompatActivity {
 
     ActivityMovieDetailsBinding binding;
 
-    ImageView moviePoster;
-    TextView movieTitle, movieYear;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,8 +47,6 @@ public class MovieDetailsActivity extends AppCompatActivity {
         Picasso.get()
                 .load(posterUrl)
                 .into(binding.moviePoster);
-
-
 
         binding.goBackBtn.setOnClickListener(new View.OnClickListener() {
             @Override

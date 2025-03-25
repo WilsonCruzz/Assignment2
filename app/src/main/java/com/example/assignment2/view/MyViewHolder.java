@@ -12,7 +12,7 @@ import com.example.assignment2.R;
 public class MyViewHolder extends RecyclerView.ViewHolder {
 
     ImageView imageView;
-    TextView title, year, type;
+    TextView title, year;
     ItemClickListener itemClickListener;
 
 
@@ -22,7 +22,6 @@ public class MyViewHolder extends RecyclerView.ViewHolder {
         imageView = itemView.findViewById(R.id.imageview);
         title = itemView.findViewById(R.id.title_txt);
         year = itemView.findViewById(R.id.year_text);
-        //imdbRating = itemView.findViewById(R.id.rating_text);
 
         this.itemClickListener = itemClickListener;
 

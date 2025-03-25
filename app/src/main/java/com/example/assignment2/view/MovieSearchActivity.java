@@ -25,7 +25,6 @@ public class MovieSearchActivity extends AppCompatActivity implements ItemClickL
 
     List<Item> itemList;
     MyAdapter myAdapter;
-
     MainActivityViewModel viewModel;
 
 
@@ -40,27 +39,33 @@ public class MovieSearchActivity extends AppCompatActivity implements ItemClickL
 
         itemList = new ArrayList<>();
 
-
-
+        // Initialize the ViewModel
         viewModel = new ViewModelProvider(this).get(MainActivityViewModel.class);
 
+        // Observe the LiveData
         viewModel.getMovieData().observe(this, movieList->{
 
+
             if (movieList != null) {
+                // Clear the existing list
                 itemList.clear();
+                // Add the new movies to the list
                 for (MovieModel movie : movieList) {
                     itemList.add(new Item(movie.getPoster(), movie.getTitle(), movie.getYear(), movie.getType()));
                 }
             }
 
 
+            // Set up the RecyclerView
             LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+            // Set the layout manager
             binding.recyclerView.setLayoutManager(layoutManager);
+            // Set the adapter
             myAdapter = new MyAdapter(getApplicationContext(), itemList);
             binding.recyclerView.setAdapter(myAdapter);
 
+            // Set the item click listener
             myAdapter.setItemClickListener(this);
-
 
         });
 
@@ -71,12 +76,8 @@ public class MovieSearchActivity extends AppCompatActivity implements ItemClickL
 
                 String title = binding.searchText.getText().toString();
                 viewModel.Search(title);
-
             }
         });
-
-
-
     }
 
 

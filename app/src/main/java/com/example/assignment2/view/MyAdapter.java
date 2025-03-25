@@ -28,6 +28,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
     }
 
 
+    //1. Adapter calls onCreateViewHolder() → Creates a new ViewHolder instance.
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -38,6 +39,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
         return myViewHolder;
     }
 
+    //Adapter calls onBindViewHolder() → Binds movie images and text to the ViewHolder
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
 
@@ -50,10 +52,6 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
 
         holder.title.setText(item.getItemName());
         holder.year.setText(item.getItemYear());
-        //holder.type.setText(item.getItemType());
-        //holder.imdbRating.setText(item.getItemImdbRating());
-
-
     }
 
     @Override
