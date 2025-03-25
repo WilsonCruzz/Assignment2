@@ -58,8 +58,9 @@ public class MainActivityViewModel extends ViewModel {
                         movieModel.setPoster(movieJson.getString("Poster"));
                         movieModel.setTitle(movieJson.getString("Title"));
                         movieModel.setYear(movieJson.getString("Year"));
+                        movieModel.setType(movieJson.getString("Type"));
 
-                        movieList.add(movieModel); // 把電影加入列表
+                        movieList.add(movieModel);
                     }
 
                     movieData.postValue(movieList);

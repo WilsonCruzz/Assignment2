@@ -3,7 +3,7 @@ package com.example.assignment2.view;
 public class Item {
 
 
-    String itemImg,itemName, itemYear;
+    String itemImg,itemName, itemYear,itemType,itemRating;
 
     public Item(){}
 
@@ -13,6 +13,13 @@ public class Item {
         this.itemName = itemName;
         this.itemYear = itemYear;
     }
+    public Item(String itemImg, String itemName,String itemYear,String itemType) {
+        this.itemImg = itemImg;
+        this.itemName = itemName;
+        this.itemYear = itemYear;
+        this.itemType = itemType;
+    }
+
 
     public String getItemImg() {
         return itemImg;
@@ -37,5 +44,21 @@ public class Item {
 
     public void setItemYear(String itemYear) {
         this.itemYear = itemYear;
+    }
+
+    public String getItemType() {
+        return itemType;
+    }
+
+    public void setItemType(String itemType) {
+        this.itemType = itemType;
+    }
+
+    public String getItemRating() {
+        return itemRating;
+    }
+
+    public void setItemRating(String itemRating) {
+        this.itemRating = itemRating;
     }
 }

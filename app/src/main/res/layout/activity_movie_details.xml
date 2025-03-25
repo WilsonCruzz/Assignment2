@@ -3,17 +3,69 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
+    android:background="#283339"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".view.MovieDetailsActivity">
 
     <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="417dp"
-        android:layout_height="414dp"
-        android:layout_marginTop="4dp"
+        android:id="@+id/moviePoster"
+        android:layout_width="332dp"
+        android:layout_height="306dp"
+        android:layout_marginTop="108dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.493"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/img" />
+        app:srcCompat="@drawable/ic_launcher_background" />
+
+    <TextView
+        android:id="@+id/movieTitle"
+        android:layout_width="349dp"
+        android:layout_height="59dp"
+        android:layout_marginTop="32dp"
+        android:text="movieTitle"
+        android:textColor="#FFFFFF"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/moviePoster"
+        app:layout_constraintTop_toBottomOf="@+id/moviePoster" />
+
+    <TextView
+        android:id="@+id/movieYear"
+        android:layout_width="89dp"
+        android:layout_height="56dp"
+        android:layout_marginStart="16dp"
+        android:textColor="#FFFFFF"
+        android:text="movieYear"
+        app:layout_constraintBottom_toBottomOf="@+id/movieType"
+        app:layout_constraintEnd_toStartOf="@+id/movieType"
+        app:layout_constraintHorizontal_bias="0.239"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/movieType"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/movieType"
+        android:layout_width="137dp"
+        android:layout_height="58dp"
+        android:layout_marginTop="48dp"
+        android:textColor="#FFFFFF"
+        android:text="movieType"
+        app:layout_constraintEnd_toEndOf="@+id/movieTitle"
+        app:layout_constraintHorizontal_bias="0.962"
+        app:layout_constraintStart_toStartOf="@+id/movieTitle"
+        app:layout_constraintTop_toBottomOf="@+id/movieTitle" />
+
+    <Button
+        android:id="@+id/goBackBtn"
+        android:layout_width="285dp"
+        android:layout_height="56dp"
+        android:layout_marginTop="148dp"
+        android:text="Go Back"
+        app:layout_constraintEnd_toEndOf="@+id/movieTitle"
+        app:layout_constraintHorizontal_bias="0.369"
+        app:layout_constraintStart_toStartOf="@+id/movieTitle"
+        app:layout_constraintTop_toBottomOf="@+id/movieTitle" />
 </androidx.constraintlayout.widget.ConstraintLayout>

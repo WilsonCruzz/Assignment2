@@ -43,7 +43,6 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
 
         Item item = items.get(position);
 
-
         // Set the image using Picasso
         Picasso.get()
                 .load(item.getItemImg())
@@ -51,6 +50,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
 
         holder.title.setText(item.getItemName());
         holder.year.setText(item.getItemYear());
+        //holder.type.setText(item.getItemType());
         //holder.imdbRating.setText(item.getItemImdbRating());
 
 

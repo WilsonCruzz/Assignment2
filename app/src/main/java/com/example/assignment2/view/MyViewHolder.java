@@ -12,7 +12,7 @@ import com.example.assignment2.R;
 public class MyViewHolder extends RecyclerView.ViewHolder {
 
     ImageView imageView;
-    TextView title, year, imdbRating;
+    TextView title, year, type;
     ItemClickListener itemClickListener;
 
 
