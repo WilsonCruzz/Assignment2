@@ -26,10 +26,10 @@
         android:layout_marginTop="56dp"
         android:text="movieType"
         android:textColor="#FFFFFF"
-        app:layout_constraintEnd_toEndOf="@+id/movieDesc"
+        app:layout_constraintEnd_toEndOf="@+id/favMovieType"
         app:layout_constraintHorizontal_bias="0.473"
-        app:layout_constraintStart_toStartOf="@+id/movieDesc"
-        app:layout_constraintTop_toBottomOf="@+id/movieDesc" />
+        app:layout_constraintStart_toStartOf="@+id/favMovieType"
+        app:layout_constraintTop_toBottomOf="@+id/favMovieType" />
 
     <Button
         android:id="@+id/goBackBtn"
@@ -54,11 +54,11 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <TextView
-        android:id="@+id/movieDesc"
+        android:id="@+id/favMovieType"
         android:layout_width="344dp"
         android:layout_height="79dp"
         android:layout_marginTop="12dp"
-        android:text="movieDesc"
+        android:text=""
         android:textColor="#FFFFFF"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"

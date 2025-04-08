@@ -8,12 +8,12 @@
     android:layout_height="match_parent"
     tools:context=".view.FavoriteDetails">
 
-    <TextView
-        android:id="@+id/movieDesc"
+    <EditText
+        android:id="@+id/favMovieType"
         android:layout_width="344dp"
         android:layout_height="79dp"
         android:layout_marginTop="12dp"
-        android:text="movieDesc"
+        android:text=""
         android:textColor="#FFFFFF"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -34,8 +34,8 @@
 
     <TextView
         android:id="@+id/movieTitle"
-        android:layout_width="349dp"
-        android:layout_height="59dp"
+        android:layout_width="351dp"
+        android:layout_height="72dp"
         android:layout_marginTop="8dp"
         android:text="movieTitle"
         android:textColor="#FFFFFF"
@@ -54,7 +54,7 @@
         app:layout_constraintEnd_toEndOf="@+id/movieTitle"
         app:layout_constraintHorizontal_bias="0.515"
         app:layout_constraintStart_toStartOf="@+id/movieTitle"
-        app:layout_constraintTop_toBottomOf="@+id/movieDesc" />
+        app:layout_constraintTop_toBottomOf="@+id/favMovieType" />
 
     <Button
         android:id="@+id/delFavBtn"
@@ -62,19 +62,19 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="112dp"
         android:text="Delete"
-        app:layout_constraintBottom_toBottomOf="@+id/updateFavBtn"
-        app:layout_constraintStart_toEndOf="@+id/updateFavBtn"
-        app:layout_constraintTop_toTopOf="@+id/updateFavBtn"
+        app:layout_constraintBottom_toBottomOf="@+id/updateTypeBtn"
+        app:layout_constraintStart_toEndOf="@+id/updateTypeBtn"
+        app:layout_constraintTop_toTopOf="@+id/updateTypeBtn"
         app:layout_constraintVertical_bias="0.0" />
 
     <Button
-        android:id="@+id/updateFavBtn"
+        android:id="@+id/updateTypeBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="28dp"
         android:text="Update"
-        app:layout_constraintEnd_toEndOf="@+id/movieDesc"
+        app:layout_constraintEnd_toEndOf="@+id/favMovieType"
         app:layout_constraintHorizontal_bias="0.104"
-        app:layout_constraintStart_toStartOf="@+id/movieDesc"
-        app:layout_constraintTop_toBottomOf="@+id/movieDesc" />
+        app:layout_constraintStart_toStartOf="@+id/favMovieType"
+        app:layout_constraintTop_toBottomOf="@+id/favMovieType" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -44,14 +44,17 @@ public class MovieDetailsActivity extends AppCompatActivity {
         // get intent
         Intent intent = getIntent();
         String posterUrl = intent.getStringExtra("poster");
-        String title = "Title: "+intent.getStringExtra("title");
-        String year = "Year: "+intent.getStringExtra("year");
-        String type = "Type: "+intent.getStringExtra("type");
+        String title = intent.getStringExtra("title");
+        String year =intent.getStringExtra("year");
+        String type =intent.getStringExtra("type");
 
         // setText
-        binding.movieTitle.setText(title);
-        binding.movieYear.setText(year);
-        binding.movieType.setText(type);
+        String viewTitle= "Title :" + title;
+        binding.movieTitle.setText(viewTitle);
+        String viewYear= "Year :" + year;
+        binding.movieYear.setText(viewYear);
+        String viewType= "Type :" + type;
+        binding.movieType.setText(viewType);
 
 
         // use Picasso to load image-

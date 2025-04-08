@@ -42,10 +42,13 @@ public class FavoriteDetails extends AppCompatActivity {
         // get intent
         Intent intent = getIntent();
         String posterUrl = intent.getStringExtra("poster");
-        String title = "Title: " + intent.getStringExtra("title");
+        String title = intent.getStringExtra("title");
+        String year =  intent.getStringExtra("year");
+        String type =  intent.getStringExtra("type");
 
         // setText
         binding.movieTitle.setText(title);
+        binding.favMovieType.setText(type);
 
 
         // use Picasso to load image-
@@ -60,8 +63,10 @@ public class FavoriteDetails extends AppCompatActivity {
             removeMovieFromFavorites(mAuth.getCurrentUser().getUid(), new MovieModel(intent.getStringExtra("title")));
             finish();
         });
-        binding.updateFavBtn.setOnClickListener(view -> {
-            //update firebase
+        binding.updateTypeBtn.setOnClickListener(view -> {
+            String editedType = binding.favMovieType.getText().toString();
+            // get the new type from edit text
+            updateMoviesType(mAuth.getCurrentUser().getUid(), editedType);
         });
 
     }
@@ -94,7 +99,32 @@ public class FavoriteDetails extends AppCompatActivity {
             userRef.update("favoriteMovies", favorites);
 
         });
-    }
 
+    }
+    private void updateMoviesType(String uid, String type) {
+        DocumentReference userRef = db.collection("Users").document(uid);
+        // edit textview
+        userRef.get().addOnSuccessListener(documentSnapshot -> {
+            if (!documentSnapshot.exists()) {
+                // User does not exist
+                return;
+                }
+            // Get the user object from Firestore
+            UserModel user = documentSnapshot.toObject(UserModel.class);
+            List<MovieModel> favorites = user.getFavoriteMovies();
+            if (favorites == null) {
+                return;
+                }
+            Iterator<MovieModel> iterator = favorites.iterator();
+            while (iterator.hasNext()) {
+                MovieModel m = iterator.next();
+                m.setType(type);
+                }
+            // Update the user's favorite movies in Firestore
+            userRef.update("favoriteMovies", favorites);
+        });
+
+
+    }
 
 }
