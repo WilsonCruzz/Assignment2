@@ -15,6 +15,8 @@ import com.example.assignment2.R;
 import com.example.assignment2.databinding.ActivityMovieSearchBinding;
 import com.example.assignment2.model.MovieModel;
 import com.example.assignment2.viewmodel.MainActivityViewModel;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,6 +29,9 @@ public class MovieSearchActivity extends AppCompatActivity implements ItemClickL
     MyAdapter myAdapter;
     MainActivityViewModel viewModel;
 
+    FirebaseAuth mAuth;
+
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
 
 
     @Override
@@ -36,6 +41,8 @@ public class MovieSearchActivity extends AppCompatActivity implements ItemClickL
 
         binding = ActivityMovieSearchBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        mAuth = FirebaseAuth.getInstance();
 
         itemList = new ArrayList<>();
 
@@ -76,6 +83,14 @@ public class MovieSearchActivity extends AppCompatActivity implements ItemClickL
 
                 String title = binding.searchText.getText().toString();
                 viewModel.Search(title);
+            }
+        });
+
+        binding.GoToFavBtn.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                Intent intentObj = new Intent(getApplicationContext(), Favorite.class);
+                startActivity(intentObj);
             }
         });
     }

@@ -7,6 +7,7 @@ public class MovieModel {
     String year;
     String poster;
     String type;
+    String Description;
 
 
     public MovieModel() {
@@ -43,14 +44,13 @@ public class MovieModel {
     }
 
 
+    public String getDescription() {
+        return Description;
+    }
 
-
-
-
-
-
-
-
+    public void setDescription(String description) {
+        Description = description;
+    }
 
 }
 
