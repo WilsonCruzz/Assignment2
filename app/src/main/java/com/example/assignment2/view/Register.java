@@ -29,9 +29,11 @@ import com.google.firebase.firestore.FirebaseFirestore;
 public class Register extends AppCompatActivity {
 
     ActivityRegisterBinding binding;
-
+    // FirebaseAuth instance
     private FirebaseAuth mAuth;
+    // Firebase Firestore instance
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
+    // Collection reference for the "Users" collection
     private CollectionReference usersCollection = db.collection("Users");
 
 
@@ -56,22 +58,24 @@ public class Register extends AppCompatActivity {
     }
 
     private void registerUser(String email, String password){
-
+        // Check if email and password are not empty
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
 
                         if(task.isSuccessful()){
-                            Log.d("TAG", "createUserWithEmail:success");
                             FirebaseUser firebaseUser = mAuth.getCurrentUser();
                             if (firebaseUser != null) {
                                 String uid = firebaseUser.getUid();
                                 String email = firebaseUser.getEmail();
                                 SaveUserToFirestore(uid, email);
                             }
+                            // Create an intent to navigate to the Login activity
                             Intent intentObj = new Intent(getApplicationContext(), Login.class);
+                            // Clear the activity stack
                             startActivity(intentObj);
+                            // Show a success message
                             finish();
                         }else{
                             Log.w("TAG", "createUserWithEmail:failure", task.getException());

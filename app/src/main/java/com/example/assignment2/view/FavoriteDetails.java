@@ -51,7 +51,7 @@ public class FavoriteDetails extends AppCompatActivity {
         binding.favMovieType.setText(type);
 
 
-        // use Picasso to load image-
+        // use Picasso to load image
         Picasso.get()
                 .load(posterUrl)
                 .into(binding.moviePoster);
@@ -64,6 +64,7 @@ public class FavoriteDetails extends AppCompatActivity {
             finish();
         });
         binding.updateTypeBtn.setOnClickListener(view -> {
+            // user input
             String editedType = binding.favMovieType.getText().toString();
             // get the new type from edit text
             updateMoviesType(mAuth.getCurrentUser().getUid(), editedType);
@@ -71,6 +72,9 @@ public class FavoriteDetails extends AppCompatActivity {
 
     }
 
+    // Get DB >>> User >> favoriteMovies>> check title  >> remove movie >> update DB
+    // This function finds and removes a specific movie from the user’s favorite list in Firestore,
+    // using an iterator to avoid modification errors.
     public void removeMovieFromFavorites(String uid, MovieModel movie) {
         DocumentReference userRef = db.collection("Users").document(uid);
 
@@ -86,6 +90,7 @@ public class FavoriteDetails extends AppCompatActivity {
             if (favorites == null) {
                 return;
             }
+            // reason why use iterator is to avoid error (ConcurrentModificationException)
             Iterator<MovieModel> iterator = favorites.iterator();
             while (iterator.hasNext()) {
                 MovieModel m = iterator.next();
@@ -101,6 +106,9 @@ public class FavoriteDetails extends AppCompatActivity {
         });
 
     }
+    // Get DB >>> User >> favoriteMovies>> get user input(parameter)>> set info >> update DB
+    // This function updates the type field of every movie in the user's favorites list,
+    // and saves the changes back to Firestore.
     private void updateMoviesType(String uid, String type) {
         DocumentReference userRef = db.collection("Users").document(uid);
         // edit textview
@@ -115,6 +123,8 @@ public class FavoriteDetails extends AppCompatActivity {
             if (favorites == null) {
                 return;
                 }
+            //  loop through favorite movies
+            // reason why use iterator is to avoid ConcurrentModificationException
             Iterator<MovieModel> iterator = favorites.iterator();
             while (iterator.hasNext()) {
                 MovieModel m = iterator.next();

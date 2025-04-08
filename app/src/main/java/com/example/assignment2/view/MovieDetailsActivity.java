@@ -45,19 +45,19 @@ public class MovieDetailsActivity extends AppCompatActivity {
         Intent intent = getIntent();
         String posterUrl = intent.getStringExtra("poster");
         String title = intent.getStringExtra("title");
-        String year =intent.getStringExtra("year");
-        String type =intent.getStringExtra("type");
+        String year = intent.getStringExtra("year");
+        String type = intent.getStringExtra("type");
 
         // setText
-        String viewTitle= "Title :" + title;
+        String viewTitle = "Title :" + title;
         binding.movieTitle.setText(viewTitle);
-        String viewYear= "Year :" + year;
+        String viewYear = "Year :" + year;
         binding.movieYear.setText(viewYear);
-        String viewType= "Type :" + type;
+        String viewType = "Type :" + type;
         binding.movieType.setText(viewType);
 
 
-        // use Picasso to load image-
+        // use Picasso to load image
         Picasso.get()
                 .load(posterUrl)
                 .into(binding.moviePoster);
@@ -76,39 +76,43 @@ public class MovieDetailsActivity extends AppCompatActivity {
         });
 
     }
+
+    // get DB >>> User >> favoriteMovies>> check if movie exist  >> add movie >> update DB
+    // This function checks if a movie already exists in the user’s favorite list. If it doesn’t,
+    // it adds the movie and updates Firestore.
     public void addMovieToFavorites(String uid, MovieModel movie) {
         DocumentReference userRef = usersCollection.document(uid);
 
         userRef.get().addOnSuccessListener(documentSnapshot -> {
-            if (documentSnapshot.exists()) {
-                UserModel user = documentSnapshot.toObject(UserModel.class);
-                List<MovieModel> favorites = user.getFavoriteMovies();
-
-                if (favorites == null) {
-                    favorites = new ArrayList<>();
-                }
-
-                boolean alreadyExists = false;
-                for (MovieModel m : favorites) {
-                    if (m.getTitle() != null && movie.getTitle() != null &&
-                            m.getTitle().equalsIgnoreCase(movie.getTitle())) {
-                        alreadyExists = true;
-                        break;
-                    }
-                }
-
-
-                if (!alreadyExists) {
-                    favorites.add(movie);
-                    userRef.update("favoriteMovies", favorites)
-                            .addOnSuccessListener(aVoid -> Log.d("Firestore", "Movie added to favorites"))
-                            .addOnFailureListener(e -> Log.w("Firestore", "Error updating favorites", e));
-                } else {
-                    Log.d("Firestore", "Movie already in favorites");
-                }
-            } else {
+            if (!documentSnapshot.exists()) {
+                // User does not exist
                 Log.d("Firestore", "User not found");
+                return;
             }
-        }).addOnFailureListener(e -> Log.w("Firestore", "Error fetching user", e));
+            // Get the user object from Firestore
+
+            UserModel user = documentSnapshot.toObject(UserModel.class);
+            List<MovieModel> favorites = user.getFavoriteMovies();
+
+            if (favorites == null) {
+                favorites = new ArrayList<>();
+            }
+            // Check if the movie already exists in the favorites list
+            boolean alreadyExists = false;
+            for (MovieModel m : favorites) {
+                if (m.getTitle() != null && movie.getTitle() != null &&
+                        m.getTitle().equalsIgnoreCase(movie.getTitle())) {
+                    alreadyExists = true;
+                    break;
+                }
+            }
+            // Check if the movie already exists in the favorites list
+            if (alreadyExists) {
+                Log.d("Firestore", "Movie already in favorites");
+                return;
+            }
+            favorites.add(movie);
+            userRef.update("favoriteMovies", favorites);
+        });
     }
 }

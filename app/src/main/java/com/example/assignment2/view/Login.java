@@ -44,8 +44,9 @@ public class Login extends AppCompatActivity {
         binding.loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //signIn(binding.userEmail.getText().toString(), binding.userPassword.getText().toString());
-                signIn("wilson@gmail.com", "qwer1234");
+                // Dynamic email and password
+                signIn(binding.userEmail.getText().toString(), binding.userPassword.getText().toString());
+                //signIn("wilson@gmail.com", "qwer1234");
             }
         });
     }
@@ -57,7 +58,6 @@ public class Login extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
 
                         if (task.isSuccessful()) {
-                            Log.d("TAG", "signInWithEmail:success");
                             Intent intentObj = new Intent(getApplicationContext(), MovieSearchActivity.class);
                             startActivity(intentObj);
                             finish();

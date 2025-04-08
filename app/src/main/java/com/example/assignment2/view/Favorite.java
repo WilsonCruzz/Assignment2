@@ -43,12 +43,13 @@ public class Favorite extends AppCompatActivity implements ItemClickListener {
 
         itemList = new ArrayList<>();
 
-        // RecyclerView
+        // Set RecyclerView
         LinearLayoutManager layoutManager = new LinearLayoutManager(Favorite.this);
         binding.favRecyclerView.setLayoutManager(layoutManager);
         myAdapter = new MyAdapter(Favorite.this, itemList);
         binding.favRecyclerView.setAdapter(myAdapter);
 
+        //no longer using LiveData to store data
         GetFavMovie();
 
         binding.searchBtn.setOnClickListener(new View.OnClickListener() {
@@ -61,13 +62,16 @@ public class Favorite extends AppCompatActivity implements ItemClickListener {
         // Set the item click listener
         myAdapter.setItemClickListener(this);
 
-
     }
 
+    // This function retrieves the current user’s favorite movies from Firestore,
+    // converts them into Item objects, and updates the UI list.
     private void GetFavMovie() {
 
+        // Get the current user's UID
         String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
+        // Fetch the user document from Firestore
         usersCollection.document(uid).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
@@ -75,9 +79,12 @@ public class Favorite extends AppCompatActivity implements ItemClickListener {
                     Log.d("Firestore", "User not found");
                     return;
                 }
+                // Get the user object from Firestore
                 UserModel user = documentSnapshot.toObject(UserModel.class);
+                // Check if the user has favorite movies
                 List<MovieModel> favorites = user.getFavoriteMovies();
                 itemList.clear();
+                // Add movies to the item list
                 for (MovieModel movie : favorites) {
                     Item item = new Item(
                             movie.getPoster(),
@@ -89,8 +96,8 @@ public class Favorite extends AppCompatActivity implements ItemClickListener {
                     itemList.add(item);
                     Log.d("Favorite", "Item list size: " + itemList.size());
                 }
+                // notify the adapter that the data has changed
                 myAdapter.notifyDataSetChanged();
-
             }
         });
     }
@@ -109,6 +116,5 @@ public class Favorite extends AppCompatActivity implements ItemClickListener {
         intentObj.putExtra("type", selectedMovie.getItemType());
 
         startActivity(intentObj);
-
     }
 }
