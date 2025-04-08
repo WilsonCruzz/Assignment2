@@ -57,7 +57,7 @@
         app:layout_constraintTop_toBottomOf="@+id/movieDesc" />
 
     <Button
-        android:id="@+id/DelFavBtn"
+        android:id="@+id/delFavBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="112dp"

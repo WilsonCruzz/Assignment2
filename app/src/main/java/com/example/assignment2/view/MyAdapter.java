@@ -1,6 +1,7 @@
 package com.example.assignment2.view;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,6 +43,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
     //Adapter calls onBindViewHolder() → Binds movie images and text to the ViewHolder
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
+        Log.d("Adapter", "onBindViewHolder: " + position);
 
         Item item = items.get(position);
 

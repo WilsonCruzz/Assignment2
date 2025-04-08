@@ -1,5 +1,6 @@
 package com.example.assignment2.view;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -16,6 +17,7 @@ import com.example.assignment2.model.UserModel;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -36,69 +38,61 @@ public class FavoriteDetails extends AppCompatActivity {
         setContentView(binding.getRoot());
         mAuth = FirebaseAuth.getInstance();
 
+
+        // get intent
+        Intent intent = getIntent();
+        String posterUrl = intent.getStringExtra("poster");
+        String title = "Title: " + intent.getStringExtra("title");
+
+        // setText
+        binding.movieTitle.setText(title);
+
+
+        // use Picasso to load image-
+        Picasso.get()
+                .load(posterUrl)
+                .into(binding.moviePoster);
+
         binding.goBackBtn.setOnClickListener(view -> {
             finish();
         });
-        binding.DelFavBtn.setOnClickListener(view -> {
-            //delete from firebase
+        binding.delFavBtn.setOnClickListener(view -> {
+            removeMovieFromFavorites(mAuth.getCurrentUser().getUid(), new MovieModel(intent.getStringExtra("title")));
+            finish();
         });
         binding.updateFavBtn.setOnClickListener(view -> {
             //update firebase
         });
 
     }
-    public void addMovieToFavorites(String uid, MovieModel movie) {
-        DocumentReference userRef = db.collection("users").document(uid);
+
+    public void removeMovieFromFavorites(String uid, MovieModel movie) {
+        DocumentReference userRef = db.collection("Users").document(uid);
 
         userRef.get().addOnSuccessListener(documentSnapshot -> {
-            if (documentSnapshot.exists()) {
-                UserModel user = documentSnapshot.toObject(UserModel.class);
-                List<MovieModel> favorites = user.getFavoriteMovies();
+            if (!documentSnapshot.exists()) {
+                // User does not exist
+                return;
+            }
+            // Get the user object from Firestore
+            UserModel user = documentSnapshot.toObject(UserModel.class);
+            List<MovieModel> favorites = user.getFavoriteMovies();
 
-                if (favorites == null) {
-                    favorites = new ArrayList<>();
-                }
-
-                // check if movie already exists
-                boolean alreadyExists = false;
-                for (MovieModel m : favorites) {
-                    if (m.getTitle().equalsIgnoreCase(movie.getTitle())) {
-                        alreadyExists = true;
-                        break;
-                    }
-                }
-
-                if (!alreadyExists) {
-                    favorites.add(movie);
-                    userRef.update("favoriteMovies", favorites);
-                } else {
-                    Log.d("Firestore", "Movie already in favorites");
+            if (favorites == null) {
+                return;
+            }
+            Iterator<MovieModel> iterator = favorites.iterator();
+            while (iterator.hasNext()) {
+                MovieModel m = iterator.next();
+                if (m.getTitle() != null && movie.getTitle() != null &&
+                        m.getTitle().equalsIgnoreCase(movie.getTitle())) {
+                    iterator.remove();
+                    break;
                 }
             }
-        });
-    }
-    public void removeMovieFromFavorites(String uid, MovieModel movieToRemove) {
-        DocumentReference userRef = db.collection("users").document(uid);
+            // Update the user's favorite movies in Firestore
+            userRef.update("favoriteMovies", favorites);
 
-        userRef.get().addOnSuccessListener(documentSnapshot -> {
-            if (documentSnapshot.exists()) {
-                UserModel user = documentSnapshot.toObject(UserModel.class);
-                List<MovieModel> favorites = user.getFavoriteMovies();
-
-                if (favorites != null) {
-                    // use iterator to avoid ConcurrentModificationException
-                    Iterator<MovieModel> iterator = favorites.iterator();
-                    while (iterator.hasNext()) {
-                        MovieModel m = iterator.next();
-                        if (m.getTitle().equalsIgnoreCase(movieToRemove.getTitle())) {
-                            iterator.remove();
-                            break;
-                        }
-                    }
-
-                    userRef.update("favoriteMovies", favorites);
-                }
-            }
         });
     }
 

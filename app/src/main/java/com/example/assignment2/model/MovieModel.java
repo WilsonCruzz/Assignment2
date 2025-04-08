@@ -12,6 +12,23 @@ public class MovieModel {
 
     public MovieModel() {
     }
+    public MovieModel(String title) {
+        this.title = title;
+    }
+
+    public MovieModel(String posterUrl, String title, String year, String type) {
+        this.poster = posterUrl;
+        this.title = title;
+        this.year = year;
+        this.type = type;
+    }
+    public MovieModel(String description, String posterUrl, String title, String year, String type) {
+        this.Description = description;
+        this.poster = posterUrl;
+        this.title = title;
+        this.year = year;
+        this.type = type;
+    }
 
     public String getTitle() {
         return title;

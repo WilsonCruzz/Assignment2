@@ -14,9 +14,14 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.example.assignment2.R;
 import com.example.assignment2.databinding.ActivityMovieSearchBinding;
 import com.example.assignment2.model.MovieModel;
+import com.example.assignment2.model.UserModel;
 import com.example.assignment2.viewmodel.MainActivityViewModel;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,6 +37,7 @@ public class MovieSearchActivity extends AppCompatActivity implements ItemClickL
     FirebaseAuth mAuth;
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private CollectionReference usersCollection = db.collection("Users");
 
 
     @Override
@@ -112,4 +118,5 @@ public class MovieSearchActivity extends AppCompatActivity implements ItemClickL
         startActivity(intentObj);
 
     }
+
 }
